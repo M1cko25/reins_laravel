@@ -20,7 +20,8 @@
         "spatie/laravel-activitylog": "^5.0",
         "spatie/laravel-medialibrary": "^11.23",
         "spatie/laravel-model-status": "^1.20",
-        "spatie/laravel-permission": "^8.3"
+        "spatie/laravel-permission": "^8.3",
+        "spatie/laravel-tags": "^4.12"
     },
     "require-dev": {
         "fakerphp/faker": "^1.24",

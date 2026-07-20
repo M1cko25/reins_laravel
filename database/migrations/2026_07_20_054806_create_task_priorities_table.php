@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project_accesses', function (Blueprint $table) {
+        Schema::create('task_priorities', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->text('description');
+            $table->string('name');
+            $table->string('color')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project_accesses');
+        Schema::dropIfExists('task_priorities');
     }
 };

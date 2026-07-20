@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->string('key')->unique();
+            $table->foreignId('project_template_id')->constrained('project_templates')->cascadeOnDelete();
+            $table->integer('status')->default(1);
+            $table->foreignId('access_id')->constrained('project_accesses')->cascadeOnDelete();
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('target_end_date')->nullable();
+            $table->foreignId('owner_id')->constrained('users')->cascadeOnDelete();
+            $table->string('url')->unique()->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

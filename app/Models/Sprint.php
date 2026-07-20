@@ -4,19 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\ModelStatus\HasStatuses;
 
-class ProjectMember extends Model
+class Sprint extends Model
 {
-    use HasStatuses, SoftDeletes;
+    use SoftDeletes;
 
     protected $fillable = [
         'project_id',
-        'user_id',
-        'role_id',
-        'joined_at',
-        'status',
+        'name',
+        'start_date',
+        'end_date',
+        'status_id',
+        'is_active',
     ];
 
     /**
@@ -27,14 +28,16 @@ class ProjectMember extends Model
     protected function casts(): array
     {
         return [
-            'role_id' => 'integer',
-            'status' => 'integer',
-            'joined_at' => 'datetime',
+            'project_id' => 'integer',
+            'status_id' => 'integer',
+            'is_active' => 'boolean',
+            'start_date' => 'datetime',
+            'end_date' => 'datetime',
         ];
     }
 
     /**
-     * Get the project.
+     * Get the project that this sprint belongs to.
      *
      * @return BelongsTo<Projects, $this>
      */
@@ -44,12 +47,12 @@ class ProjectMember extends Model
     }
 
     /**
-     * Get the user.
+     * Get the tasks in this sprint.
      *
-     * @return BelongsTo<User, $this>
+     * @return HasMany<Task, $this>
      */
-    public function user(): BelongsTo
+    public function tasks(): HasMany
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->hasMany(Task::class, 'sprint_id');
     }
 }

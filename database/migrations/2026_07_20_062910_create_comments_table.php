@@ -11,17 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project_members', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_id')->constrained('projects')->cascadeOnDelete();
+            $table->foreignId('task_id')->constrained('tasks')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->integer('role_id');
-            $table->timestamp('joined_at')->useCurrent();
-            $table->integer('status')->default(1);
+            $table->text('content');
+            $table->foreignId('parent_comment_id')->nullable()->constrained('comments')->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
-
-            $table->unique(['project_id', 'user_id']);
         });
     }
 
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project_members');
+        Schema::dropIfExists('comments');
     }
 };

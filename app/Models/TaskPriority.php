@@ -6,22 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProjectAccess extends Model
+class TaskPriority extends Model
 {
     use SoftDeletes;
 
     protected $fillable = [
         'name',
-        'description',
+        'color',
     ];
 
     /**
-     * Get the projects using this access level.
+     * Get the tasks with this priority.
      *
-     * @return HasMany<Projects, $this>
+     * @return HasMany<Task, $this>
      */
-    public function projects(): HasMany
+    public function tasks(): HasMany
     {
-        return $this->hasMany(Projects::class, 'access_id');
+        return $this->hasMany(Task::class, 'priority_id');
     }
 }
